@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app="GeoportalCl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+
+    <title>{{ 'mark_name' | translate }}</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css?v=1.0">
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body ng-controller="MainController">
+    <div class="translate-icons">
+      <span ng-click="change_language('en', this)" class="translate-en">English</span>
+      |
+      <span ng-click="change_language('es', this)" class="translate-es">Spanish</span>
+    </div>
+    <div class="central-container row">
+      <div class="col-md-12"><img src="/images/banner.jpg"></div>
+
+      <div class="links-container col-md-12">
+        <a class="btn" href="#">DISASTERS</a>
+        <a class="btn" href="http://www.geoportal.org/web/guest/geo_home_stp" target="_blank">GEO WEBSITE</a>
+        <a class="btn" href="http://www.geoportal.org/web/guest/geo_home_stp" target="_blank">GEOSS PORTAL</a>
+        <a class="btn" href="http://www.geoportal.org/web/guest/geo_home_stp" target="_blank">ONEMI</a>
+        <a class="btn" href="http://www.geoportal.org/web/guest/geo_home_stp" target="_blank">GEO CHILE</a>
+      </div>
+      <div class="col-md-6 filters-box">
+        <!-- <input class="form-control" ng-model="queryFilters.text"> -->
+        <label>Tipo de desastre</label>
+        <select class="form-control" ng-model="queryFilters.disasterType" ng-options="disasterType as disasterType.label for disasterType in disasterTypes"></select>
+        <label>Lugar</label>
+        <select class="form-control" ng-model="queryFilters.area" ng-options="area as area.label group by area.group for area in areas"></select>
+        <label>Rango temporal</label>
+        <div class="row">
+          <div class="col-md-6">
+            <input class="form-control" type="date" ng-model="queryFilters.fromDate">
+          </div>
+          <div class="col-md-6">
+            <input class="form-control" type="date" ng-model="queryFilters.toDate">
+          </div>
+        </div>
+        <br>
+        <div class="right-align">
+          <button type="button" class="btn" ng-click="search()">Search</button>
+        </div>
+      </div>
+      <div class="col-md-6 map-container">
+        <ui-gmap-google-map center="map.center" zoom="map.zoom">
+          <ui-gmap-rectangle ng-repeat="area in areas" bounds="area.mapBox.bounds"
+              fill="{color: area.mapBox.color, opacity: 0.4}"
+              stroke="{color: area.mapBox.color, width: 2}"
+              clickable="true"
+              visible="queryFilters.area.label == area.label">
+          </ui-gmap-rectangle>
+
+        </ui-gmap-google-map>
+      </div>
+      <div class="col-md-12">
+        <div>
+          <div class="center" ng-show="loading">
+            <h2>Loading results...</h2>
+            <img src="/images/loading_spinner.gif">
+          </div>
+          <div ng-show="!loading">
+            <div class="result" ng-repeat="result in results">
+              <b>{{result.title}}</b>
+              <p>{{result.description}}</p>
+              <small>Keywords: {{result.keyword.join(' - ')}}</small>
+            </div>
+          </div>
+        </div>
+        <div class="center" ng-show="(!loading && totalResults) || force_show_pagination">
+          <pagination ng-change="pageChange(bigCurrentPage)" total-items="totalResults" ng-model="bigCurrentPage" max-size="10" class="pagination-sm" boundary-links="true"></pagination>
+        </div>
+      </div>
+    </div>
+    
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="lib/giapi-1.2.9-beta.min.js"></script>
+    <script src="bower_components/lodash/lodash.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/angular-ui-bootstrap-pagination/pagination.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.min.js"></script>
+    <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.min.js"></script>
+    <script src="lib/angular-google-maps/dist/angular-google-maps.min.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/main-controller.js"></script>
+    <script src="js/directive/burger-menu.directive.js"></script>
+    <script src="js/service/geossapi.service.js"></script>
+
+  </body>
+</html>

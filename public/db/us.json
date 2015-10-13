@@ -1,0 +1,29 @@
+{ "us": [
+  {
+    "name": "Ignacia Perez",
+    "description": "tr_description_ignacia_tr",
+    "image": "gato1.png",
+    "links": [
+        { "href": "https://www.linkedin.com/in/ignaciapons", "icon_class": "fa-linkedin" }
+    ],
+    "css_class": ""
+  },
+  {
+    "name": "Renzo Canepa",
+    "description": "tr_description_renzo_tr",
+    "image": "gato2.png",
+    "links": [
+        { "href": "https://www.linkedin.com/in/rcanepag", "icon_class": "fa-linkedin" }
+    ],
+    "css_class": ""
+  },
+  {
+    "name": "Aldo Canepa",
+    "description": "tr_description_aldo_tr",
+    "image": "gato3.png",
+    "links": [
+        { "href": "https://www.linkedin.com/in/aldocanepa", "icon_class": "fa-linkedin" }
+    ],
+    "css_class": ""
+  }
+]}

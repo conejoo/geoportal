@@ -1,0 +1,67 @@
+{ "projects": [
+  {
+    "name": "SimpleClerk",
+    "imageFolder": "simpleclerk",
+    "images": [
+      {"src": "s1login.png", "text": "bla1"},
+      {"src": "s2.png", "text": "bla2"},
+      {"src": "SS - Consumo Detail.png"},
+      {"src": "SS - Consumo Edit.png"},
+      {"src": "SS - Consumos.png"},
+      {"src": "SS - Prefactura Detail.png"},
+      {"src": "SS - Prefactura Documentos.png"},
+      {"src": "SS - Prefactura PDF.png"}
+    ],
+    "description": "tr_description_project_1_tr",
+    "techs": [
+      {"src": "angularjs.png"},
+      {"src": "django.png"},
+      {"src": "python.png"},
+      {"src": "postgresql.png"}
+    ],
+    "link": "http://google.cl"
+  },
+  {
+    "name": "ChilePropiedades.cl",
+    "imageFolder": "chilepropiedades",
+    "images": [
+      {"src": "1.png"},
+      {"src": "2.png"},
+      {"src": "3.png"},
+      {"src": "4.png"},
+      {"src": "5.png"},
+      {"src": "6.png"},
+      {"src": "7.png"}
+    ],
+    "description": "tr_description_project_2_tr",
+    "techs": [
+      {"src": "java.png"},
+      {"src": "playframework.png"},
+      {"src": "angularjs.png"},
+      {"src": "postgresql.png"}
+    ],
+    "link": "http://chilepropiedades.cl"
+  },
+  {
+    "name": "Camaron",
+    "imageFolder": "camaron",
+    "images": [
+      {"src": "1.jpg"},
+      {"src": "1.png"},
+      {"src": "2.png"},
+      {"src": "3.png"},
+      {"src": "4.png"},
+      {"src": "5.png"},
+      {"src": "6.png"},
+      {"src": "7.png"},
+      {"src": "8.png"}
+    ],
+    "description": "tr_description_project_3_tr",
+    "techs": [
+      {"src": "angularjs.png"},
+      {"src": "django.png"},
+      {"src": "postgresql.png"}
+    ],
+    "link": "http://users.dcc.uchile.cl/~nancy/sites/default/files/Trabajo_Dirigido_Sitio_Web/index.html"
+  }
+]}

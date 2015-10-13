@@ -1,0 +1,24 @@
+{
+  "name": "geoportal-cl",
+  "version": "0.0.1",
+  "authors": [
+    "Conejoo <waldoc@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "angular-translate": "~2.7.2",
+    "angular-sanitize": "~1.4.3",
+    "bootstrap": "~3.3.5",
+    "angular-bootstrap": "~0.13.1",
+    "angular-translate-loader-static-files": "~2.7.2",
+    "angular-ui-bootstrap-pagination": "~0.12.0"
+  }
+}
