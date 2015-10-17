@@ -85,7 +85,7 @@
             report.whenText = new Date(report.when[0].start).format("ddd mmm dd yyyy");
           report.markerOptions = {
             title: report.title,
-            opacity: 0.7
+            opacity: 1.0
           };
           console.log(report);
       }
@@ -119,9 +119,11 @@
       _.forEach($scope.results, function (result_) {
         result_.selected = false;
         result_.markerOptions.opacity = 0.7;
+        result_.markerOptions.animation = null;
       });
       result.selected = true;
       result.markerOptions.opacity = 1.0;
+      result.markerOptions.animation = google.maps.Animation.BOUNCE;
     }
   }
 
