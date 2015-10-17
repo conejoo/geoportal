@@ -7,6 +7,7 @@
     .controller('MainController', MainController);
 
   function MainController($scope, $http, $translate, $cookies, uiGmapGoogleMapApi, uiGmapIsReady, GeossAPI) {
+    $scope.pristine = true;
     $scope.change_language = function(lang) {
       $translate.use(lang);
       $cookies.put('lang', lang);
@@ -93,6 +94,7 @@
       $scope.$apply();
     };
     $scope.search = function() {
+      $scope.pristine = false;
       $scope.loading = true;
       $scope.totalResults = 0;
       $scope.bigCurrentPage = 1;
