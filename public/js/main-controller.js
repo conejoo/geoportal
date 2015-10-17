@@ -84,7 +84,7 @@
             report.whenText = new Date(report.when[0].start).format("ddd mmm dd yyyy");
           report.markerOptions = {
             title: report.title,
-            opacity: 0.5
+            opacity: 0.7
           };
           console.log(report);
       }
@@ -116,7 +116,7 @@
     $scope.selectResult = function (result) {
       _.forEach($scope.results, function (result_) {
         result_.selected = false;
-        result_.markerOptions.opacity = 0.5;
+        result_.markerOptions.opacity = 0.7;
       });
       result.selected = true;
       result.markerOptions.opacity = 1.0;

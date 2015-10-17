@@ -81,6 +81,7 @@
             <img src="/images/loading_spinner.gif">
           </div>
           <div ng-show="!loading">
+            <div ng-show="results.length == 0" class="center"><h2>{{"No results found" | translate}}</h2></div>
             <div class="result" ng-repeat="result in results" ng-click="selectResult(result)" ng-class="{selected: result.selected}">
               <b>{{result.title}}</b>
               <p>{{result.description}}</p>
