@@ -24,10 +24,14 @@
 	border: 1px solid #D1D1D1;
 	padding: 10px;
 	margin-bottom: 20px;
+	cursor: pointer;
+}
+.result.selected {
+	background-color: #EEE;
 }
 .bold {
 	font-weight: bold;
 }
 .translate-icons {
-	
+
 }

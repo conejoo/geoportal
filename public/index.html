@@ -66,7 +66,12 @@
               clickable="true"
               visible="queryFilters.area.label == area.label">
           </ui-gmap-rectangle>
-
+          <ui-gmap-marker ng-repeat="result in results"
+              idKey="result.uniqueId"
+              coords="result.latlng"
+              options="result.markerOptions"
+              >
+          </ui-gmap-marker>
         </ui-gmap-google-map>
       </div>
       <div class="col-md-12">
@@ -76,9 +81,12 @@
             <img src="/images/loading_spinner.gif">
           </div>
           <div ng-show="!loading">
-            <div class="result" ng-repeat="result in results">
+            <div class="result" ng-repeat="result in results" ng-click="selectResult(result)" ng-class="{selected: result.selected}">
               <b>{{result.title}}</b>
               <p>{{result.description}}</p>
+              <small ng-if="result.when[0].start">
+                {{"Date" | translate}}: {{result.whenText}}
+              </small><br ng-if="result.when[0].start">
               <small>{{"Keywords" | translate}}: {{result.keyword.join(' - ')}}</small>
             </div>
           </div>

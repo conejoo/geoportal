@@ -12,6 +12,7 @@
       $cookies.put('lang', lang);
       $scope.currentLang = lang;
     };
+    $scope.resultCounter = 0;
     if ($cookies.get('lang'))
       $scope.change_language($cookies.get('lang'));
 
@@ -73,6 +74,19 @@
           // retrieves the current node report 
           var report = node.report();
           $scope.results.push(report);
+          report.uniqueId = $scope.resultCounter++;
+          if (report.where[0])
+            report.latlng = {
+              longitude: (report.where[0].east + report.where[0].east)/2.0,
+              latitude: (report.where[0].north + report.where[0].south)/2.0
+            }
+          if (report.when[0])
+            report.whenText = new Date(report.when[0].start).format("ddd mmm dd yyyy");
+          report.markerOptions = {
+            title: report.title,
+            opacity: 0.5
+          };
+          console.log(report);
       }
       $scope.loading = false;
       $scope.force_show_pagination = false;
@@ -99,6 +113,14 @@
       }
       console.log($scope.queryFilters.area);
     };
+    $scope.selectResult = function (result) {
+      _.forEach($scope.results, function (result_) {
+        result_.selected = false;
+        result_.markerOptions.opacity = 0.5;
+      });
+      result.selected = true;
+      result.markerOptions.opacity = 1.0;
+    }
   }
 
 })();
