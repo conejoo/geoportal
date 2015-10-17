@@ -10,34 +10,41 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css?v=1.0">
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/lodash/lodash.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
 
-  <body ng-controller="MainController">
-    <div class="translate-icons">
-      <span ng-click="change_language('en', this)" class="translate-en">English</span>
-      |
-      <span ng-click="change_language('es', this)" class="translate-es">Spanish</span>
-    </div>
+  <body ng-controller="MainController" ng-cloak>
     <div class="central-container row">
+      <div class="col-md-12 translate-icons">
+        <span ng-click="change_language('en', this)" class="translate-en" ng-class="{bold: currentLang == 'en'}">English</span>
+        |
+        <span ng-click="change_language('es', this)" class="translate-es" ng-class="{bold: currentLang == 'es'}">Spanish</span>
+      </div>
       <div class="col-md-12"><img src="/images/banner.jpg"></div>
 
       <div class="links-container col-md-12">
-        <a class="btn" href="#">DISASTERS</a>
-        <a class="btn" href="http://www.geoportal.org/web/guest/geo_home_stp" target="_blank">GEO WEBSITE</a>
-        <a class="btn" href="http://www.geoportal.org/web/guest/geo_home_stp" target="_blank">GEOSS PORTAL</a>
-        <a class="btn" href="http://www.geoportal.org/web/guest/geo_home_stp" target="_blank">ONEMI</a>
-        <a class="btn" href="http://www.geoportal.org/web/guest/geo_home_stp" target="_blank">GEO CHILE</a>
+        <a class="btn" href="#">{{"DISASTERS" | translate}}</a>
+        <a class="btn" target="_blank" href="http://www.earthobservations.org">{{"GEO International" | translate}}</a>
+        <a class="btn" target="_blank" href="http://www.ide.cl">{{"IDE Chile" | translate}}</a>
+        <a class="btn" target="_blank" href="http://www.onemi.cl">{{"ONEMI Chile" | translate}}</a>
+        <a class="btn" target="_blank" href="http://www.sernageomin.cl/volcanes.php">{{"Volcanoes" | translate}}</a>
+        <a class="btn" target="_blank" href="http://www.sismologia.cl/">{{"Earthquakes" | translate}}</a>
+        <a class="btn" target="_blank" href="http://www.meteochile.gob.cl/inicio.php">{{"Meteorology" | translate}}</a>
+        <a class="btn" target="_blank" href="http://www.conaf.cl/incendios-forestales">{{"Wild Fires" | translate}}</a>
+
       </div>
       <div class="col-md-6 filters-box">
         <!-- <input class="form-control" ng-model="queryFilters.text"> -->
-        <label>Tipo de desastre</label>
-        <select class="form-control" ng-model="queryFilters.disasterType" ng-options="disasterType as disasterType.label for disasterType in disasterTypes"></select>
-        <label>Lugar</label>
-        <select class="form-control" ng-model="queryFilters.area" ng-options="area as area.label group by area.group for area in areas"></select>
-        <label>Rango temporal</label>
+        <label>{{"Type of disaster" | translate}}</label>
+        <select class="form-control" ng-model="queryFilters.disasterType" ng-options="disasterType as disasterType.label | translate for disasterType in disasterTypes"></select>
+        <label>{{"Area" | translate}}</label>
+        <select class="form-control" ng-model="queryFilters.area" ng-options="area as area.label | translate group by area.group | translate for area in areas" ng-change="areaChanged()"></select>
+        <label>{{"Date range" | translate}}</label>
         <div class="row">
           <div class="col-md-6">
             <input class="form-control" type="date" ng-model="queryFilters.fromDate">
@@ -48,12 +55,12 @@
         </div>
         <br>
         <div class="right-align">
-          <button type="button" class="btn" ng-click="search()">Search</button>
+          <button type="button" class="btn" ng-click="search()">{{"Search" | translate}}</button>
         </div>
       </div>
       <div class="col-md-6 map-container">
         <ui-gmap-google-map center="map.center" zoom="map.zoom">
-          <ui-gmap-rectangle ng-repeat="area in areas" bounds="area.mapBox.bounds"
+          <ui-gmap-rectangle ng-repeat="area in areas" bounds="area.mapBox.latLngBounds"
               fill="{color: area.mapBox.color, opacity: 0.4}"
               stroke="{color: area.mapBox.color, width: 2}"
               clickable="true"
@@ -65,28 +72,26 @@
       <div class="col-md-12">
         <div>
           <div class="center" ng-show="loading">
-            <h2>Loading results...</h2>
+            <h2>{{"Loading results" | translate}}...</h2>
             <img src="/images/loading_spinner.gif">
           </div>
           <div ng-show="!loading">
             <div class="result" ng-repeat="result in results">
               <b>{{result.title}}</b>
               <p>{{result.description}}</p>
-              <small>Keywords: {{result.keyword.join(' - ')}}</small>
+              <small>{{"Keywords" | translate}}: {{result.keyword.join(' - ')}}</small>
             </div>
           </div>
         </div>
         <div class="center" ng-show="(!loading && totalResults) || force_show_pagination">
-          <pagination ng-change="pageChange(bigCurrentPage)" total-items="totalResults" ng-model="bigCurrentPage" max-size="10" class="pagination-sm" boundary-links="true"></pagination>
+          <pagination previous-text="{{'Previous' | translate}}" next-text="{{'Next' | translate}}" last-text="{{'Last' | translate}}" first-text="{{'First' | translate}}" ng-change="pageChange(bigCurrentPage)" total-items="totalResults" ng-model="bigCurrentPage" max-size="10" class="pagination-sm" boundary-links="true"></pagination> <!-- totalResults-->
         </div>
       </div>
     </div>
     
-    <script src="bower_components/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="lib/giapi-1.2.9-beta.min.js"></script>
-    <script src="bower_components/lodash/lodash.min.js"></script>
-    <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="bower_components/angular-ui-bootstrap-pagination/pagination.js"></script>
     <script src="bower_components/angular-translate/angular-translate.min.js"></script>

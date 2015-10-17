@@ -6,85 +6,39 @@
     .module('GeoportalCl')
     .controller('MainController', MainController);
 
-  MainController.$inject = ['$scope', 'uiGmapGoogleMapApi', 'GeossAPI'];
-
-  function MainController($scope, uiGmapGoogleMapApi, GeossAPI) {
-    $scope.change_language = function(lang, obj) {
+  function MainController($scope, $http, $translate, $cookies, uiGmapGoogleMapApi, uiGmapIsReady, GeossAPI) {
+    $scope.change_language = function(lang) {
       $translate.use(lang);
+      $cookies.put('lang', lang);
+      $scope.currentLang = lang;
     };
-    uiGmapGoogleMapApi.then(function (){
-      $scope.areas = [
-        { label: 'Chile', coords: {},
-          mapBox: {
-            bounds: new google.maps.LatLngBounds(
-              new google.maps.LatLng(-55.902, -109.446),
-              new google.maps.LatLng(-17.505,-66.421)),
-            color: '#FFF'
-          }
-        },
-        { label: 'Zona norte', coords: {}, group: 'Zonas',
-          mapBox: {
-            bounds: new google.maps.LatLngBounds(
-              new google.maps.LatLng(-20.902, -109.446),
-              new google.maps.LatLng(-17.505,-66.421)),
-            color: '#F00'
-          }
-        },
-        { label: 'Zona central', coords: {}, group: 'Zonas',
-          mapBox: {
-            bounds: new google.maps.LatLngBounds(
-              new google.maps.LatLng(-30.902, -109.446),
-              new google.maps.LatLng(-20.505,-66.421)),
-            color: '#FF0'
-          }
-        },
-        { label: 'Zona sur', coords: {}, group: 'Zonas',
-          mapBox: {
-            bounds: new google.maps.LatLngBounds(
-              new google.maps.LatLng(-45.902, -109.446),
-              new google.maps.LatLng(-30.505,-66.421)),
-            color: '#0F0'
-          }
-        },
-        { label: 'Zona austral', coords: {}, group: 'Zonas',
-          mapBox: {
-            bounds: new google.maps.LatLngBounds(
-              new google.maps.LatLng(-55.902, -109.446),
-              new google.maps.LatLng(-45.505,-66.421)),
-            color: '#00F'
-          }
-        },
-        { label: 'Villarica', coords: {}, group: 'Lugar',
-          mapBox: {
-            bounds: new google.maps.LatLngBounds(
-              new google.maps.LatLng(-46.902, -109.446),
-              new google.maps.LatLng(-45.505,-66.421)),
-            color: '#0FF'
-          }
-        },
-        { label: 'Illapel', coords: {}, group: 'Lugar',
-          mapBox: {
-            bounds: new google.maps.LatLngBounds(
-              new google.maps.LatLng(-35.902, -109.446),
-              new google.maps.LatLng(-34.505,-66.421)),
-            color: '#AAF'
-          }
-        },
-        { label: 'Calbuco', coords: {}, group: 'Lugar',
-          mapBox: {
-            bounds: new google.maps.LatLngBounds(
-              new google.maps.LatLng(-24.902, -109.446),
-              new google.maps.LatLng(-23.505,-66.421)),
-            color: '#250'
-          }
-        }
-      ];
-      $scope.queryFilters = {
-        area: $scope.areas[0],
-        disasterType: $scope.disasterTypes[0],
-        fromDate: new Date(new Date().getTime() - 24*1000*3600),
-        toDate: new Date()
-      };
+    if ($cookies.get('lang'))
+      $scope.change_language($cookies.get('lang'));
+
+    $scope.regionsPromise = $http.get('/db/areas.json').success(function (data) {
+      $scope.areas = data.areas;
+    });
+    uiGmapIsReady.promise(1).then(function(instances) {
+      instances.forEach(function(inst) {
+        $scope.gmapInstance = inst.map;
+        window.mmap = inst.map;
+      });
+    });
+    uiGmapGoogleMapApi.then(function () {
+      $scope.regionsPromise.then(function () {
+        _.forEach($scope.areas, function (area) {
+          area.mapBox.latLngBounds = new google.maps.LatLngBounds(
+            new google.maps.LatLng(-area.mapBox.bounds.s, -area.mapBox.bounds.w),
+            new google.maps.LatLng(-area.mapBox.bounds.n, -area.mapBox.bounds.e)
+          );
+        });
+        $scope.queryFilters = {
+          area: $scope.areas[0],
+          disasterType: $scope.disasterTypes[0],
+          fromDate: new Date(new Date().getTime() - 24*1000*3600),
+          toDate: new Date()
+        };
+      });
     });
     $scope.disasterTypes = [
       { label: 'Earthquake', key: 'earthquake' },
@@ -136,6 +90,14 @@
         $scope.force_show_pagination = true;
         $scope.paginator.skip(handler, bigCurrentPage, true);
       }
+    };
+    $scope.areaChanged = function () {
+      //$scope.gmapInstance
+      if ($scope.gmapInstance) {
+        $scope.gmapInstance.setZoom($scope.queryFilters.area.mapZoom || 3);
+        $scope.gmapInstance.panTo($scope.queryFilters.area.mapBox.latLngBounds.getCenter());
+      }
+      console.log($scope.queryFilters.area);
     };
   }
 

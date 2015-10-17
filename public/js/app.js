@@ -1,4 +1,5 @@
 var app = angular.module('GeoportalCl', [
+  'ngCookies',
   'ui.bootstrap',
   'ui.bootstrap.pagination',
   'ngSanitize',

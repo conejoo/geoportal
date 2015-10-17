@@ -1,0 +1,220 @@
+{
+    "areas": [
+        {
+            "label": "North",
+            "group": "Zones",
+            "mapZoom": 3,
+            "mapBox": {
+                "bounds": {
+                    "n": 16,
+                    "s": 32,
+                    "w": 114,
+                    "e": 66
+                },
+                "color": "#FFF"
+            }
+        },
+        {
+            "label": "Central",
+            "group": "Zones",
+            "mapZoom": 3,
+            "mapBox": {
+                "bounds": {
+                    "n": 32,
+                    "s": 48,
+                    "w": 114,
+                    "e": 66
+                },
+                "color": "#FFF"
+            }
+        },
+        {
+            "label": "South",
+            "group": "Zones",
+            "mapZoom": 3,
+            "mapBox": {
+                "bounds": {
+                    "n": 48,
+                    "s": 60,
+                    "w": 114,
+                    "e": 66
+                },
+                "color": "#FFF"
+            }
+        },
+        {
+            "label": "Antartic",
+            "group": "Zones",
+            "mapZoom": 3,
+            "mapBox": {
+                "bounds": {
+                    "n": 60,
+                    "s": 90,
+                    "w": 96,
+                    "e": 50
+                },
+                "color": "#FFF"
+            }
+        },
+        {
+            "label": "Illapel",
+            "group": "Places",
+            "center": [31.616666666666667, 71.18333333333334],
+            "latlong": "31°37’ 71°11’",
+            "mapZoom": 6,
+            "mapBox": {
+                "bounds": {
+                    "n": 28,
+                    "s": 34,
+                    "w": 75,
+                    "e": 67
+                },
+                "color": "#9F9"
+            }
+        },
+        {
+            "label": "Copahue",
+            "group": "Places",
+            "center": [37.85, 71.16666666666667],
+            "latlong": "37°51’ 71°10’",
+            "mapZoom": 7,
+            "mapBox": {
+                "bounds": {
+                    "n": 36,
+                    "s": 39,
+                    "w": 72,
+                    "e": 70
+                },
+                "color": "#9F9"
+            }
+        },
+        {
+            "label": "Calbuco",
+            "group": "Places",
+            "center": [41.31666666666667, 72.61666666666666],
+            "latlong": "41°19’ 72°37’",
+            "mapZoom": 7,
+            "mapBox": {
+                "bounds": {
+                    "n": 40,
+                    "s": 42,
+                    "w": 74,
+                    "e": 71
+                },
+                "color": "#9F9"
+            }
+        },
+        {
+            "label": "Iquique",
+            "group": "Places",
+            "center": [20.216666666666665, 70.13333333333334],
+            "latlong": "20°13’ 70°08’",
+            "mapZoom": 6,
+            "mapBox": {
+                "bounds": {
+                    "n": 17,
+                    "s": 23,
+                    "w": 74,
+                    "e": 66
+                },
+                "color": "#9F9"
+            }
+        },
+        {
+            "label": "Valparaiso",
+            "group": "Places",
+            "center": [33.03333333333333, 71.6],
+            "latlong": "33°02’ 71°36’",
+            "mapZoom": 6,
+            "mapBox": {
+                "bounds": {
+                    "n": 30,
+                    "s": 36,
+                    "w": 76,
+                    "e": 67
+                },
+                "color": "#9F9"
+            }
+        },
+        {
+            "label": "Villarica",
+            "group": "Places",
+            "center": [39.416666666666664, 71.93333333333334],
+            "latlong": "39°25’ 71°56’",
+            "mapZoom": 7,
+            "mapBox": {
+                "bounds": {
+                    "n": 41,
+                    "s": 38,
+                    "w": 73,
+                    "e": 70
+                },
+                "color": "#9F9"
+            }
+        },
+        {
+            "label": "Talcahuano",
+            "group": "Places",
+            "center": [36.71666666666667, 73.11666666666666],
+            "latlong": "36°43’ 73°07’",
+            "mapZoom": 6,
+            "mapBox": {
+                "bounds": {
+                    "n": 33,
+                    "s": 40,
+                    "w": 77,
+                    "e": 69
+                },
+                "color": "#9F9"
+            }
+        },
+        {
+            "label": "Easter Island",
+            "group": "Places",
+            "center": [26.983333333333334, 109.51666666666667],
+            "latlong": "26°59’ 109°31’",
+            "mapZoom": 6,
+            "mapBox": {
+                "bounds": {
+                    "n": 23,
+                    "s": 30,
+                    "w": 113,
+                    "e": 105
+                },
+                "color": "#9F9"
+            }
+        },
+        {
+            "label": "Juan Fernandez Island",
+            "group": "Places",
+            "center": [33.766666666666666, 80.76666666666667],
+            "latlong": "33°46’ 80°46’",
+            "mapZoom": 5,
+            "mapBox": {
+                "bounds": {
+                    "n": 30,
+                    "s": 37,
+                    "w": 85,
+                    "e": 76
+                },
+                "color": "#9F9"
+            }
+        },
+        {
+            "label": "A.F. Antartic Base",
+            "group": "Places",
+            "center": [62.18333333333333, 58.96666666666667],
+            "latlong": "62°11’ 58°58’",
+            "mapZoom": 5,
+            "mapBox": {
+                "bounds": {
+                    "n": 59,
+                    "s": 65,
+                    "w": 63,
+                    "e": 54
+                },
+                "color": "#9F9"
+            }
+        }
+    ]
+}

@@ -19,8 +19,8 @@
 
     function search(query, handler) {
       console.log(query);
-      var ne = query.area.mapBox.bounds.getNorthEast();
-      var sw = query.area.mapBox.bounds.getSouthWest();
+      var ne = query.area.mapBox.latLngBounds.getNorthEast();
+      var sw = query.area.mapBox.latLngBounds.getSouthWest();
       var constraints = {
         "where": {
             "south": sw.lat(),
