@@ -2,6 +2,7 @@ var app = angular.module('GeoportalCl', [
   'ngCookies',
   'ui.bootstrap',
   'ui.bootstrap.pagination',
+  'ui.bootstrap.datepicker',
   'ngSanitize',
   'pascalprecht.translate',
   'uiGmapgoogle-maps'

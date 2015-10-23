@@ -124,7 +124,13 @@
       result.selected = true;
       result.markerOptions.opacity = 1.0;
       result.markerOptions.animation = google.maps.Animation.BOUNCE;
-    }
+    };
+    $scope.datepickerStatus = { fromOpen: false, toOpen: false };
+    $scope.dateOptions = {
+      formatYear: 'yyyy',
+      startingDay: 1,
+      showButtonBar: false
+    };
   }
 
 })();

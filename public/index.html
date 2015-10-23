@@ -47,10 +47,10 @@
         <label>{{"Date range" | translate}}</label>
         <div class="row">
           <div class="col-md-6">
-            <input class="form-control" type="date" ng-model="queryFilters.fromDate">
+            <input type="date" class="form-control" datepicker-popup ng-model="queryFilters.fromDate" is-open="datepickerStatus.fromOpen" datepicker-options="dateOptions" ng-required="true" ng-click="datepickerStatus.fromOpen = true" show-weeks="false" show-button-bar="false"/>
           </div>
           <div class="col-md-6">
-            <input class="form-control" type="date" ng-model="queryFilters.toDate">
+            <input type="date" class="form-control" datepicker-popup ng-model="queryFilters.toDate" is-open="datepickerStatus.toOpen" datepicker-options="dateOptions" ng-required="true" ng-click="datepickerStatus.toOpen = true" show-weeks="false" show-button-bar="false"/>
           </div>
         </div>
         <br>

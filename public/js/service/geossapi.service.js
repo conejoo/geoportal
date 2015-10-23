@@ -33,6 +33,7 @@
              "from": query.fromDate.format('yyyy-mm-dd'),
              "to": query.toDate.format('yyyy-mm-dd')
          },
+         "source": "UUID-e101622c-6ae1-4b68-bfea-8acf067e31dd,idechile",
          "what": query.disasterType.key
       };
       this.api.discover(handler, constraints, this.options);
