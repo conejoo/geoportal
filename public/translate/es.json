@@ -16,7 +16,7 @@
   "Wild Fires": "Incendios forestales",
   "Keywords": "Palabras clave",
   "North": "Norte",
-  "South": "Norte",
+  "South": "Sur",
   "Antartic": "Antártica",
   "Easter Island": "Isla de Pascua",
   "Juan Fernandez Island": "Isla de Juan Fernandez",
@@ -26,5 +26,6 @@
   "Next": "Siguiente",
   "First": "Primera",
   "Last": "Última",
+  "Volcanoe": "Volcán",
   "No results found": "No se encontraron resultados"
 }

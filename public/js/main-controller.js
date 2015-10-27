@@ -44,8 +44,9 @@
     });
     $scope.disasterTypes = [
       { label: 'Earthquake', key: 'earthquake' },
-      { label: 'Fire', key: 'fire' },
-      { label: 'Flood', key: 'flood' }
+      { label: 'Fire', key: 'wildfire' },
+      { label: 'Flood', key: 'flood' },
+      { label: 'Volcanoe', key: 'volcanoe' }
     ];
     $scope.map = { center: { latitude: -38.450680, longitude: -70.570724 }, zoom: 3 };
     
@@ -110,7 +111,7 @@
     $scope.areaChanged = function () {
       //$scope.gmapInstance
       if ($scope.gmapInstance) {
-        $scope.gmapInstance.setZoom($scope.queryFilters.area.mapZoom || 3);
+        //$scope.gmapInstance.setZoom($scope.queryFilters.area.mapZoom || 3);
         $scope.gmapInstance.panTo($scope.queryFilters.area.mapBox.latLngBounds.getCenter());
       }
       console.log($scope.queryFilters.area);

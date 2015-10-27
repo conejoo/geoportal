@@ -23,7 +23,7 @@
       <div class="col-md-12 translate-icons">
         <span ng-click="change_language('en', this)" class="translate-en" ng-class="{bold: currentLang == 'en'}">English</span>
         |
-        <span ng-click="change_language('es', this)" class="translate-es" ng-class="{bold: currentLang == 'es'}">Spanish</span>
+        <span ng-click="change_language('es', this)" class="translate-es" ng-class="{bold: currentLang == 'es'}">Espa&ntilde;ol</span>
       </div>
       <div class="col-md-12"><img src="/images/banner.jpg" style="width: 100%;"></div>
 
@@ -72,6 +72,9 @@
               options="result.markerOptions"
               >
           </ui-gmap-marker>
+          <ui-gmap-circle center="[-71.16666666666667, -37.85]"
+                radius="100000"
+                fill="{color: 'red', opacity: 1}"></ui-gmap-circle>
         </ui-gmap-google-map>
       </div>
       <div class="col-md-12">

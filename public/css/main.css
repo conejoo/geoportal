@@ -1,3 +1,6 @@
+html, body {
+	min-height: 100%;
+}
 * {
 	box-sizing: border-box;
 }
@@ -6,6 +9,7 @@
 	border-right: 1px solid gray;
 	max-width: 971px;
 	margin: auto;
+	min-height: 100vh;
 }
 
 .links-container a {

@@ -1,6 +1,19 @@
 {
     "areas": [
         {
+            "label": "Chile",
+            "mapZoom": 1,
+            "mapBox": {
+                "bounds": {
+                    "n": 16,
+                    "s": 84.5,
+                    "w": 114,
+                    "e": 66
+                },
+                "color": "#FFF"
+            }
+        },
+        {
             "label": "North",
             "group": "Zones",
             "mapZoom": 3,
@@ -49,7 +62,7 @@
             "mapBox": {
                 "bounds": {
                     "n": 60,
-                    "s": 90,
+                    "s": 84.5,
                     "w": 96,
                     "e": 50
                 },
