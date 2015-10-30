@@ -23,7 +23,7 @@
     "angular-simple-logger": "~0.0.4",
     "lodash": "~3.10.1",
     "angular-cookies": "~1.4.7",
-    "ui-select": "git@github.com:angular-ui/ui-select.git"
+    "angular-ui-select": "~0.13.2"
   },
   "resolutions": {
     "angular": "1.4.7"
