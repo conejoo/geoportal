@@ -9,6 +9,7 @@
     <title>{{ 'mark_name' | translate }}</title>
     <link href='http://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/ui-select/dist/select.min.css">
     <link rel="stylesheet" href="css/main.css?v=1.0">
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/lodash/lodash.min.js"></script>
@@ -18,7 +19,7 @@
     <![endif]-->
   </head>
 
-  <body ng-controller="MainController" ng-cloak>
+  <body ng-controller="MainController" ng-cloak ng-scroll="scrolling($event)">
     <div class="central-container row">
       <div class="col-md-12 translate-icons">
         <span ng-click="change_language('en', this)" class="translate-en" ng-class="{bold: currentLang == 'en'}">English</span>
@@ -38,33 +39,68 @@
         <a class="btn" target="_blank" href="http://www.conaf.cl/incendios-forestales">{{"Wild Fires" | translate}}</a>
 
       </div>
-      <div class="col-md-6 filters-box">
-        <!-- <input class="form-control" ng-model="queryFilters.text"> -->
-        <label>{{"Type of disaster" | translate}}</label>
-        <select class="form-control" ng-model="queryFilters.disasterType" ng-options="disasterType as disasterType.label | translate for disasterType in disasterTypes"></select>
-        <label>{{"Area" | translate}}</label>
-        <select class="form-control" ng-model="queryFilters.area" ng-options="area as area.label | translate group by area.group | translate for area in areas" ng-change="areaChanged()"></select>
-        <label>{{"Date range" | translate}}</label>
-        <div class="row">
-          <div class="col-md-6">
-            <input type="date" class="form-control" datepicker-popup ng-model="queryFilters.fromDate" is-open="datepickerStatus.fromOpen" datepicker-options="dateOptions" ng-required="true" ng-click="datepickerStatus.fromOpen = true" show-weeks="false" show-button-bar="false"/>
+      <div class="col-md-6">
+        <div class="col-md-12 filters-box">
+          <!-- <input class="form-control" ng-model="queryFilters.text"> -->
+          <label>{{"Type of disaster" | translate}}</label>
+          <ui-select multiple ng-model="queryFilters.disasterType" theme="bootstrap">
+            <ui-select-match placeholder="Select disasters...">{{$item.label}}</ui-select-match>
+            <ui-select-choices repeat="disasterType in disasterTypes">
+              <div ng-bind-html="disasterType.label | translate | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+          <label>{{"Area" | translate}}</label>
+          <select class="form-control" ng-model="queryFilters.area" ng-options="area as area.label | translate group by area.group | translate for area in areas" ng-change="areaChanged()"></select>
+          <label>{{"Date range" | translate}}</label>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="date" class="form-control" datepicker-popup ng-model="queryFilters.fromDate" is-open="datepickerStatus.fromOpen" datepicker-options="dateOptions" ng-required="true" ng-click="datepickerStatus.fromOpen = true" show-weeks="false" show-button-bar="false"/>
+            </div>
+            <div class="col-md-6">
+              <input type="date" class="form-control" datepicker-popup ng-model="queryFilters.toDate" is-open="datepickerStatus.toOpen" datepicker-options="dateOptions" ng-required="true" ng-click="datepickerStatus.toOpen = true" show-weeks="false" show-button-bar="false"/>
+            </div>
           </div>
-          <div class="col-md-6">
-            <input type="date" class="form-control" datepicker-popup ng-model="queryFilters.toDate" is-open="datepickerStatus.toOpen" datepicker-options="dateOptions" ng-required="true" ng-click="datepickerStatus.toOpen = true" show-weeks="false" show-button-bar="false"/>
+          <br>
+          <div class="right-align">
+            <button type="button" class="btn" ng-click="search()">{{"Search" | translate}}</button>
           </div>
+          <br>
+          <br>
         </div>
-        <br>
-        <div class="right-align">
-          <button type="button" class="btn" ng-click="search()">{{"Search" | translate}}</button>
+        <div class="col-md-12">
+          <div>
+            <div class="center" ng-show="loading">
+              <h2>{{"Loading results" | translate}}...</h2>
+              <img src="/images/loading_spinner.gif">
+            </div>
+            <div ng-show="!loading">
+              <div ng-show="results.length == 0 && !pristine" class="center"><h2>{{"No results found" | translate}}</h2></div>
+              <div class="result" ng-repeat="result in results" ng-click="selectResult(result)" ng-class="{selected: result.selected}">
+                <b>{{result.title}}</b>
+                <p>{{result.description}}</p>
+                <small ng-if="result.when[0].start">
+                  {{"Date" | translate}}: {{result.whenText}}
+                </small><br ng-if="result.when[0].start">
+                <small>{{"Keywords" | translate}}: {{result.keyword.join(' - ')}}</small>
+              </div>
+            </div>
+          </div>
+          <div class="center" ng-show="(!loading && totalResults) || force_show_pagination">
+            <pagination previous-text="{{'Previous' | translate}}" next-text="{{'Next' | translate}}" last-text="{{'Last' | translate}}" first-text="{{'First' | translate}}" ng-change="pageChange(bigCurrentPage)" total-items="totalResults" ng-model="bigCurrentPage" max-size="10" class="pagination-sm" boundary-links="true"></pagination> <!-- totalResults-->
+          </div>
         </div>
       </div>
-      <div class="col-md-6 map-container">
-        <ui-gmap-google-map center="map.center" zoom="map.zoom">
-          <ui-gmap-rectangle ng-repeat="area in areas" bounds="area.mapBox.latLngBounds"
+      <div class="col-md-6 map-container" ng-class="mapContainerFollow">
+        <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
+          <!-- <ui-gmap-rectangle ng-repeat="area in areas" bounds="area.mapBox.latLngBounds"
               fill="{color: area.mapBox.color, opacity: 0.4}"
               stroke="{color: area.mapBox.color, width: 2}"
               clickable="true"
-              visible="queryFilters.area.label == area.label">
+              visible="queryFilters.area.label == area.label"> -->
+          <ui-gmap-rectangle bounds="queryFilters.area.mapBox.latLngBounds"
+              fill="{color: queryFilters.area.mapBox.color, opacity: 0.4}"
+              stroke="{color: queryFilters.area.mapBox.color, width: 2}"
+              clickable="true" ng-if="!queryFilters.area.circleRadius">
           </ui-gmap-rectangle>
           <ui-gmap-marker ng-repeat="result in results"
               idKey="result.uniqueId"
@@ -72,32 +108,12 @@
               options="result.markerOptions"
               >
           </ui-gmap-marker>
-          <ui-gmap-circle center="[-71.16666666666667, -37.85]"
-                radius="100000"
-                fill="{color: 'red', opacity: 1}"></ui-gmap-circle>
+          <ui-gmap-circle center="[-queryFilters.area.center[1], -queryFilters.area.center[0]]"
+                radius="queryFilters.area.circleRadius"
+                stroke="{color: queryFilters.area.mapBox.color, width: 1}"
+                fill="{color: queryFilters.area.mapBox.color, opacity: 0.4}"
+                ng-if="queryFilters.area.circleRadius"></ui-gmap-circle>
         </ui-gmap-google-map>
-      </div>
-      <div class="col-md-12">
-        <div>
-          <div class="center" ng-show="loading">
-            <h2>{{"Loading results" | translate}}...</h2>
-            <img src="/images/loading_spinner.gif">
-          </div>
-          <div ng-show="!loading">
-            <div ng-show="results.length == 0 && !pristine" class="center"><h2>{{"No results found" | translate}}</h2></div>
-            <div class="result" ng-repeat="result in results" ng-click="selectResult(result)" ng-class="{selected: result.selected}">
-              <b>{{result.title}}</b>
-              <p>{{result.description}}</p>
-              <small ng-if="result.when[0].start">
-                {{"Date" | translate}}: {{result.whenText}}
-              </small><br ng-if="result.when[0].start">
-              <small>{{"Keywords" | translate}}: {{result.keyword.join(' - ')}}</small>
-            </div>
-          </div>
-        </div>
-        <div class="center" ng-show="(!loading && totalResults) || force_show_pagination">
-          <pagination previous-text="{{'Previous' | translate}}" next-text="{{'Next' | translate}}" last-text="{{'Last' | translate}}" first-text="{{'First' | translate}}" ng-change="pageChange(bigCurrentPage)" total-items="totalResults" ng-model="bigCurrentPage" max-size="10" class="pagination-sm" boundary-links="true"></pagination> <!-- totalResults-->
-        </div>
       </div>
     </div>
     
@@ -109,7 +125,9 @@
     <script src="bower_components/angular-translate/angular-translate.min.js"></script>
     <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="bower_components/ui-select/dist/select.min.js"></script>
     <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.min.js"></script>
+    <script src="lib/ng-scroll.js"></script>
     <script src="lib/angular-google-maps/dist/angular-google-maps.min.js"></script>
 
     <script src="js/app.js?v=2"></script>

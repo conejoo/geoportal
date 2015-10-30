@@ -3,9 +3,11 @@ var app = angular.module('GeoportalCl', [
   'ui.bootstrap',
   'ui.bootstrap.pagination',
   'ui.bootstrap.datepicker',
+  'ui.select',
   'ngSanitize',
   'pascalprecht.translate',
-  'uiGmapgoogle-maps'
+  'uiGmapgoogle-maps',
+  'ngScroll'
 ]);
 
 app.config(['$translateProvider', function ($translateProvider) {

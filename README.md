@@ -17,7 +17,7 @@ bower update
 ```
 
 
-### How to run project in development ###:
+### How to run project in development ###
 
 
 ```

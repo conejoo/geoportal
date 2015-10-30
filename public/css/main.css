@@ -39,3 +39,14 @@ html, body {
 .translate-icons {
 
 }
+@media only screen and (min-width: 992px)  {
+	.map-container {
+		max-width: 484px;
+	}
+	.map-container.follow {
+		position: fixed;
+		left: 50%;
+		top: 10px;
+		/*height: 100vh;*/
+	}
+}

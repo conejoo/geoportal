@@ -36,7 +36,7 @@
         });
         $scope.queryFilters = {
           area: $scope.areas[0],
-          disasterType: $scope.disasterTypes[0],
+          disasterType: [$scope.disasterTypes[0]],
           fromDate: new Date(new Date().getTime() - 24*1000*3600),
           toDate: new Date()
         };
@@ -48,7 +48,14 @@
       { label: 'Flood', key: 'flood' },
       { label: 'Volcanoe', key: 'volcanoe' }
     ];
-    $scope.map = { center: { latitude: -38.450680, longitude: -70.570724 }, zoom: 3 };
+    $scope.map = {
+      center: { latitude: -38.450680, longitude: -70.570724 },
+      zoom: 3,
+      options: {
+        scaleControl: true,
+        mapTypeId: "hybrid"
+      }
+    };
     
     $scope.results = [];
     // API
@@ -86,7 +93,8 @@
             report.whenText = new Date(report.when[0].start).format("ddd mmm dd yyyy");
           report.markerOptions = {
             title: report.title,
-            opacity: 1.0
+            opacity: 1.0,
+            icon: '/images/red-circle.png'
           };
           console.log(report);
       }
@@ -111,7 +119,7 @@
     $scope.areaChanged = function () {
       //$scope.gmapInstance
       if ($scope.gmapInstance) {
-        //$scope.gmapInstance.setZoom($scope.queryFilters.area.mapZoom || 3);
+        $scope.gmapInstance.setZoom($scope.queryFilters.area.mapZoom || 3);
         $scope.gmapInstance.panTo($scope.queryFilters.area.mapBox.latLngBounds.getCenter());
       }
       console.log($scope.queryFilters.area);
@@ -120,11 +128,13 @@
       _.forEach($scope.results, function (result_) {
         result_.selected = false;
         result_.markerOptions.opacity = 0.7;
-        result_.markerOptions.animation = null;
+        result_.markerOptions.icon = '/images/red-circle.png';
+        //result_.markerOptions.animation = null;
       });
       result.selected = true;
       result.markerOptions.opacity = 1.0;
-      result.markerOptions.animation = google.maps.Animation.BOUNCE;
+      //result.markerOptions.animation = google.maps.Animation.BOUNCE;
+      result.markerOptions.icon = '/images/blue-circle.png';
     };
     $scope.datepickerStatus = { fromOpen: false, toOpen: false };
     $scope.dateOptions = {
@@ -132,6 +142,12 @@
       startingDay: 1,
       showButtonBar: false
     };
+    $scope.scrolling = function (event) {
+      if (event.y > 150)
+        $scope.mapContainerFollow = 'follow';
+      else
+        $scope.mapContainerFollow = '';
+    }
   }
 
 })();

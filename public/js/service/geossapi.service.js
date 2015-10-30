@@ -34,9 +34,9 @@
              "to": query.toDate.format('yyyy-mm-dd')
          },
          "source": "UUID-e101622c-6ae1-4b68-bfea-8acf067e31dd,idechile",
-         "what": query.disasterType.key
+         "what": _.pluck(query.disasterType, 'key').join(' OR ')
       };
-      this.api.discover(handler, constraints, this.options);
+      this.api.discover(handler, constraints, this.options, null);
     }
   }
 
