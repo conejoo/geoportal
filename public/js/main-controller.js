@@ -91,6 +91,10 @@
             }
           if (report.when[0])
             report.whenText = new Date(report.when[0].start).format("ddd mmm dd yyyy");
+          var match = report.title.match(/magnitude ([\d\.]*) \(magnitude type ([A-Z]*)\)/);
+          if (match.length == 3) {
+            report.magnitude = match[1] + " " + match[2];
+          }
           report.markerOptions = {
             title: report.title,
             opacity: 1.0,

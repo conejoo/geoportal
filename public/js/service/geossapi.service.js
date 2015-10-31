@@ -10,7 +10,7 @@
 
   function GeossAPI() {
     var GeossAPI = {
-      api: GIAPI.DAB('http://api.eurogeoss-broker.eu/dab'),
+      api: GIAPI.DAB('http://test.geodab.eu/testchile/'),
       search: search,
       options: { pageSize: 10 }
     };
@@ -36,6 +36,8 @@
          "source": "UUID-e101622c-6ae1-4b68-bfea-8acf067e31dd,idechile",
          "what": _.pluck(query.disasterType, 'key').join(' OR ')
       };
+      if (query.magtMl && constraints.what.indexOf('earthquake') != -1)
+        constraints.kvp = [{"key" : "magt", "value" : "ml"}];
       this.api.discover(handler, constraints, this.options, null);
     }
   }

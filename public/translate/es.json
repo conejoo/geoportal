@@ -28,6 +28,11 @@
   "Last": "Última",
   "Volcanoe": "Volcán",
   "No results found": "No se encontraron resultados",
+  "Depth": "Profundidad",
+  "Magnitude": "Magnitud",
+  "from": "de",
+  "to": "a",
+  "Only find with magnitude ML": "Solo los resultados con magnitud ML",
   "Select disasters": "Seleccione tipo de desastre...",
   "Download Android Version": "Descargar versión Android"
 }

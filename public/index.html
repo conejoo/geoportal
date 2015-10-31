@@ -49,6 +49,11 @@
               <div ng-bind-html="disasterType.label | translate | highlight: $select.search"></div>
             </ui-select-choices>
           </ui-select>
+          <div class="checkbox" ng-if="queryFilters.disasterType.indexOf(disasterTypes[0]) != -1">
+            <label>
+              <input type="checkbox" ng-model="queryFilters.magtMl">{{"Only find with magnitude ML" | translate}}
+            </label>
+          </div>
           <label>{{"Area" | translate}}</label>
           <select class="form-control" ng-model="queryFilters.area" ng-options="area as area.label | translate group by area.group | translate for area in areas" ng-change="areaChanged()"></select>
           <label>{{"Date range" | translate}}</label>
@@ -87,11 +92,24 @@
               <div ng-show="results.length == 0 && !pristine" class="center"><h2>{{"No results found" | translate}}</h2></div>
               <div class="result" ng-repeat="result in results" ng-click="selectResult(result)" ng-class="{selected: result.selected}">
                 <b>{{result.title}}</b>
-                <p>{{result.description}}</p>
-                <small ng-if="result.when[0].start">
-                  {{"Date" | translate}}: {{result.whenText}}
-                </small><br ng-if="result.when[0].start">
-                <small>{{"Keywords" | translate}}: {{result.keyword.join(' - ')}}</small>
+                <p ng-if="result.description != result.title">{{result.description}}</p>
+                <p>
+                  <small ng-if="result.magnitude">
+                    {{"Magnitude" | translate}}: {{result.magnitude}}
+                  </small>
+                  <br ng-if="result.magnitude">
+                  <small ng-if="result.verticalExtent[0]">
+                    {{"Depth" | translate}}:
+                    <span ng-if="result.verticalExtent[0].min == result.verticalExtent[0].max">{{-result.verticalExtent[0].min/1000}} {{"km" || depth}}</span>
+                    <span ng-if="result.verticalExtent[0].min != result.verticalExtent[0].max">{{"from" | translate}} {{-result.verticalExtent[0].min/1000}} Km. {{"to" | translate}} {{-result.verticalExtent[0].max/1000}} Km.</span>
+                  </small>
+                  <br ng-if="result.verticalExtent[0]">
+                  <small ng-if="result.when[0].start">
+                    {{"Date" | translate}}: {{result.whenText}}
+                  </small>
+                  <br ng-if="result.when[0].start">
+                  <small>{{"Keywords" | translate}}: {{result.keyword.join(' - ')}}</small>
+                </p>
               </div>
             </div>
           </div>
