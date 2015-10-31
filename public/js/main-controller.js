@@ -17,7 +17,7 @@
     if ($cookies.get('lang'))
       $scope.change_language($cookies.get('lang'));
 
-    $scope.regionsPromise = $http.get('/db/areas.json').success(function (data) {
+    $scope.regionsPromise = $http.get('db/areas.json').success(function (data) {
       $scope.areas = data.areas;
     });
     uiGmapIsReady.promise(1).then(function(instances) {
@@ -43,10 +43,10 @@
       });
     });
     $scope.disasterTypes = [
-      { label: 'Earthquake', key: 'earthquake' },
-      { label: 'Fire', key: 'wildfire' },
-      { label: 'Flood', key: 'flood' },
-      { label: 'Volcanoe', key: 'volcanoe' }
+      { label: 'Earthquake', key: 'earthquake OR quakes OR seism OR tremor' },
+      { label: 'Fire', key: 'wildfire OR fire' },
+      { label: 'Flood', key: 'flood OR flooding or tsunamis' },
+      { label: 'Volcanoe', key: 'volcanoe OR volcanic OR eruption' }
     ];
     $scope.map = {
       center: { latitude: -38.450680, longitude: -70.570724 },
@@ -128,13 +128,13 @@
       _.forEach($scope.results, function (result_) {
         result_.selected = false;
         result_.markerOptions.opacity = 0.7;
-        result_.markerOptions.icon = '/images/red-circle.png';
+        result_.markerOptions.icon = 'images/red-circle.png';
         //result_.markerOptions.animation = null;
       });
       result.selected = true;
       result.markerOptions.opacity = 1.0;
       //result.markerOptions.animation = google.maps.Animation.BOUNCE;
-      result.markerOptions.icon = '/images/blue-circle.png';
+      result.markerOptions.icon = 'images/blue-circle.png';
     };
     $scope.datepickerStatus = { fromOpen: false, toOpen: false };
     $scope.dateOptions = {

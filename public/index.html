@@ -26,7 +26,7 @@
         |
         <span ng-click="change_language('es', this)" class="translate-es" ng-class="{bold: currentLang == 'es'}">Espa&ntilde;ol</span>
       </div>
-      <div class="col-md-12"><img src="/images/banner.jpg" style="width: 100%;"></div>
+      <div class="col-md-12"><img src="images/banner.jpg" style="width: 100%;"></div>
 
       <div class="links-container col-md-12">
         <a class="btn" href="#">{{"DISASTERS" | translate}}</a>
@@ -44,7 +44,7 @@
           <!-- <input class="form-control" ng-model="queryFilters.text"> -->
           <label>{{"Type of disaster" | translate}}</label>
           <ui-select multiple ng-model="queryFilters.disasterType" theme="bootstrap">
-            <ui-select-match placeholder="Select disasters...">{{$item.label}}</ui-select-match>
+            <ui-select-match placeholder="{{'Select disasters...' | translate}}">{{$item.label | translate}}</ui-select-match>
             <ui-select-choices repeat="disasterType in disasterTypes">
               <div ng-bind-html="disasterType.label | translate | highlight: $select.search"></div>
             </ui-select-choices>
@@ -71,7 +71,7 @@
           <div>
             <div class="center" ng-show="loading">
               <h2>{{"Loading results" | translate}}...</h2>
-              <img src="/images/loading_spinner.gif">
+              <img src="images/loading_spinner.gif">
             </div>
             <div ng-show="!loading">
               <div ng-show="results.length == 0 && !pristine" class="center"><h2>{{"No results found" | translate}}</h2></div>
@@ -117,7 +117,8 @@
       </div>
     </div>
     
-    <script type="text/javascript" src="lib/giapi-1.2.9-beta.min.js"></script>
+    <!--<script type="text/javascript" src="lib/giapi-1.2.9-beta.min.js"></script>-->
+    <script type="text/javascript" src="lib/giapi-alpha.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
@@ -130,9 +131,9 @@
     <script src="lib/ng-scroll.js"></script>
     <script src="lib/angular-google-maps/dist/angular-google-maps.min.js"></script>
 
-    <script src="js/app.js?v=2"></script>
-    <script src="js/main-controller.js?v=2"></script>
-    <script src="js/service/geossapi.service.js?v=2"></script>
+    <script src="js/app.js?v=4"></script>
+    <script src="js/main-controller.js?v=4"></script>
+    <script src="js/service/geossapi.service.js?v=4"></script>
 
   </body>
 </html>

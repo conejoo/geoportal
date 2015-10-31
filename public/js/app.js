@@ -12,7 +12,7 @@ var app = angular.module('GeoportalCl', [
 
 app.config(['$translateProvider', function ($translateProvider) {
   $translateProvider.useStaticFilesLoader({
-    prefix: '/translate/',
+    prefix: 'translate/',
     suffix: '.json'
   });
 
