@@ -54,3 +54,10 @@ html, body {
 .download-android {
 	float: left;
 }
+@media only screen and (max-width: 992px)  {
+	.download-android {
+		float: none;
+		margin-top: 30px;
+		width: 100%;
+	}
+}
