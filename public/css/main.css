@@ -50,3 +50,7 @@ html, body {
 		/*height: 100vh;*/
 	}
 }
+
+.download-android {
+	float: left;
+}
