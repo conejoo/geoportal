@@ -24,6 +24,7 @@
       instances.forEach(function(inst) {
         $scope.gmapInstance = inst.map;
         window.mmap = inst.map;
+        $scope.mapHeight = $(inst.map.getDiv()).height() + 20;
       });
     });
     uiGmapGoogleMapApi.then(function () {
@@ -90,7 +91,7 @@
               latitude: (report.where[0].north + report.where[0].south)/2.0
             }
           if (report.when[0])
-            report.whenText = new Date(report.when[0].start).format("ddd mmm dd yyyy");
+            report.whenText = new Date(report.when[0].start).toString()// .format("ddd mmm dd yyyy, hh:MM");
           var match = report.title.match(/magnitude ([\d\.]*) \(magnitude type ([A-Z]*)\)/);
           if (match.length == 3) {
             report.magnitude = match[1] + " " + match[2];
@@ -146,11 +147,17 @@
       startingDay: 1,
       showButtonBar: false
     };
+    $scope.mapTopDistance = 0;
     $scope.scrolling = function (event) {
-      if (event.y > 150)
+      if (event.y > 150) {
         $scope.mapContainerFollow = 'follow';
-      else
+        $scope.mapTopDistance = Math.max(120 - (event.scrollHeight - event.y), 0);
+        console.log($scope.mapTopDistance);
+      }
+      else {
         $scope.mapContainerFollow = '';
+        $scope.mapTopDistance = 0;
+      }
     }
   }
 

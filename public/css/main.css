@@ -15,8 +15,13 @@ html, body {
 .links-container a {
 	
 }
+.footer {
+	margin-top: 100px;
+}
 .angular-google-map-container {
 	height: 400px;
+}
+.map-container-filler {
 }
 .center {
 	text-align: center;

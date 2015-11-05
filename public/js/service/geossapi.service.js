@@ -10,7 +10,7 @@
 
   function GeossAPI() {
     var GeossAPI = {
-      api: GIAPI.DAB('http://test.geodab.eu/testchile/'),
+      api: GIAPI.DAB('http://production.geodab.eu/gi-cat-StP/'),
       search: search,
       options: { pageSize: 10 }
     };
