@@ -18,6 +18,10 @@ html, body {
 .footer {
 	margin-top: 100px;
 }
+.footer span {
+	display: inline-block;
+	padding-right: 20px;
+}
 .angular-google-map-container {
 	height: 400px;
 }

@@ -191,8 +191,8 @@
         {
             "label": "Easter Island",
             "group": "Places",
-            "center": [26.983333333333334, 109.51666666666667],
-            "latlong": "26°59’ 109°31’",
+            "center": [27.183333, 109.35],
+            "latlong": "27,11S 109,21E",
             "mapZoom": 8,
             "mapBox": {
                 "bounds": {
@@ -203,7 +203,7 @@
                 },
                 "color": "#9F9"
             },
-            "circleRadius": 100000
+            "circleRadius": 200000
         },
         {
             "label": "Juan Fernandez Island",
@@ -220,7 +220,7 @@
                 },
                 "color": "#9F9"
             },
-            "circleRadius": 100000
+            "circleRadius": 200000
         },
         {
             "label": "A.F. Antartic Base",
