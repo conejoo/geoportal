@@ -85,15 +85,15 @@
           var report = node.report();
           $scope.results.push(report);
           report.uniqueId = $scope.resultCounter++;
-          if (report.where[0])
+          if (report.where && report.where[0])
             report.latlng = {
               longitude: (report.where[0].east + report.where[0].east)/2.0,
               latitude: (report.where[0].north + report.where[0].south)/2.0
             }
-          if (report.when[0])
+          if (report.when && report.when[0])
             report.whenText = new Date(report.when[0].start).toString()// .format("ddd mmm dd yyyy, hh:MM");
           var match = report.title.match(/magnitude ([\d\.]*) \(magnitude type ([A-Z]*)\)/);
-          if (match.length == 3) {
+          if (match && match.length == 3) {
             report.magnitude = match[1] + " " + match[2];
           }
           report.markerOptions = {
@@ -152,7 +152,6 @@
       if (event.y > 150) {
         $scope.mapContainerFollow = 'follow';
         $scope.mapTopDistance = Math.max(120 - (event.scrollHeight - event.y), 0);
-        console.log($scope.mapTopDistance);
       }
       else {
         $scope.mapContainerFollow = '';
