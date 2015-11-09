@@ -35,7 +35,7 @@
             "north": ne.lat(),
             "east": ne.lng()
          },
-         "source": "idechile",
+         "source": "UUID-e101622c-6ae1-4b68-bfea-8acf067e31dd,idechile",
          "what": _.pluck(query.disasterType, 'key').join(' OR ')
       };
       if (query.fromDate || query.toDate) {
